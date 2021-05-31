@@ -22,7 +22,7 @@
   "ticket_code_scanned": "Ticket code scanned",
   "mark_as_arrived": "Mark guest as 'arrived'",
   "badge_info": "Remember to give {name} their badge!",
-  "ticket_code_info_vue": "Is the ticket code <b>{ticket_code}</b> correct?",
+  "ticket_code_info": "Is the ticket code <b>{ticket_code}</b> correct?",
   "scan_tickets": "Scan tickets",
   "ticket_code_not_found": "Ticket code ({ticket_code}) not found!",
   "ticket_code_already_scanned": "Ticket code ({ticket_code}) already scanned at {date}!",

@@ -35,7 +35,7 @@
               class="partymeister-core-badge-alert"
               v-if="record.has_badge"
               v-html="
-                $t('partymeister-core.guests.badge_info_vue', {
+                $t('partymeister-core.guests.badge_info', {
                   name: record.name,
                 })
               "
