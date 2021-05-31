@@ -202,7 +202,6 @@ export default defineComponent({
           value: response.data.data[i].id.toString(),
         })
       }
-      console.log(categories)
     })
 
     return {

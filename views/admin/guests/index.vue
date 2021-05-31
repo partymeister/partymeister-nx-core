@@ -9,6 +9,7 @@
     :filters="filters"
     resource="guests"
     :loadComponents="loadComponents"
+    :headerActions="headerActions"
     @submit="refreshRecords"
     @submit-cell="handleCellEvent"
   ></AdminCommonGrid>
@@ -20,8 +21,11 @@ import { defineComponent, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import EditButton from 'motor-core/components/admin/cell/EditButton.vue'
 import DeleteButton from 'motor-core/components/admin/cell/DeleteButton.vue'
-import CellBooleanToggle from 'motor-core/components/admin/cell/BooleanToggle.vue'
+import CellGuestHasArrivedToggle from 'partymeister-core/components/admin/cell/GuestHasArrivedToggle.vue'
+import ModalGuestTicketScanner from 'partymeister-core/components/admin/modal/GuestTicketScanner'
 import grid from 'partymeister-core/grids/guestGrid'
+import categoryRepository from 'motor-backend/api/category'
+import axios from 'axios'
 
 export default defineComponent({
   name: 'admin-partymeister-core.guests',
@@ -63,7 +67,10 @@ export default defineComponent({
         name: t('partymeister-core.guests.has_arrived'),
         prop: 'has_arrived',
         components: [
-          { name: 'CellBooleanToggle', options: { prop: 'has_arrived' } },
+          {
+            name: 'CellGuestHasArrivedToggle',
+            options: { prop: 'has_arrived' },
+          },
         ],
       },
       {
@@ -84,15 +91,58 @@ export default defineComponent({
       },
     ])
 
+    // Get catgories from api
+    const categories = ref([])
+    const categoryRepo = categoryRepository(axios)
+    categoryRepo.index({}, '38').then((response) => {
+      for (let i = 0; i < response.data.data.length; i++) {
+        categories.value.push({
+          name: response.data.data[i].name,
+          value: response.data.data[i].id.toString(),
+        })
+      }
+    })
+
     // Define filters for grid
-    const filters = ref([{ name: 'SearchFilter', options: {} }])
+    const filters = ref([
+      { name: 'SearchFilter', options: {} },
+      {
+        name: 'SelectFilter',
+        options: {
+          parameter: 'category_id',
+          emptyOption:
+            t('global.filter') + ': ' + t('motor-backend.categories.category'),
+          options: categories,
+        },
+      },
+      {
+        name: 'SelectFilter',
+        options: {
+          parameter: 'has_arrived',
+          emptyOption:
+            t('global.filter') +
+            ': ' +
+            t('partymeister-core.guests.has_arrived'),
+          options: [
+            { name: t('global.yes'), value: 1 },
+            { name: t('global.no'), value: 0 },
+          ],
+        },
+      },
+    ])
 
     const loadComponents = <any>[
       {
-        name: 'CellBooleanToggle',
-        object: CellBooleanToggle,
+        name: 'CellGuestHasArrivedToggle',
+        object: CellGuestHasArrivedToggle,
+      },
+      {
+        name: 'ModalGuestTicketScanner',
+        object: ModalGuestTicketScanner,
       },
     ]
+
+    const headerActions = <any>[{ name: 'ModalGuestTicketScanner' }]
 
     // WE START THE OUTSOURCED CODE HERE
     const { rows, meta, refreshRecords, handleCellEvent } = grid()
@@ -104,6 +154,7 @@ export default defineComponent({
       refreshRecords,
       loadComponents,
       handleCellEvent,
+      headerActions,
     }
   },
 })
