@@ -44,7 +44,7 @@
               class="partymeister-core-badge-alert"
               v-if="record.ticket_code !== ''"
               v-html="
-                $t('partymeister-core.guests.ticket_code_info_vue', {
+                $t('partymeister-core.guests.ticket_code_info', {
                   ticket_code: record.ticket_code,
                 })
               "
