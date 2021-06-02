@@ -51,7 +51,7 @@ export default defineComponent({
       {
         name: t('partymeister-core.events.starts_at'),
         prop: 'starts_at',
-        renderer: { type: 'date', format: 'Y-MM-DD H:mm' },
+        renderer: { type: 'date', format: 'Y-MM-DD HH:mm' },
       },
       {
         name: t('partymeister-core.events.is_visible'),
