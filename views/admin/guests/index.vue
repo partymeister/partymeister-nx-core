@@ -24,7 +24,7 @@ import DeleteButton from 'motor-core/components/admin/cell/DeleteButton.vue'
 import CellGuestHasArrivedToggle from 'partymeister-core/components/admin/cell/GuestHasArrivedToggle.vue'
 import ModalGuestTicketScanner from 'partymeister-core/components/admin/modal/GuestTicketScanner'
 import grid from 'partymeister-core/grids/guestGrid'
-import categoryRepository from 'motor-backend/api/category'
+import categoryRepository from 'motor-admin/api/category'
 import axios from 'axios'
 
 export default defineComponent({
@@ -39,7 +39,7 @@ export default defineComponent({
     // Define columns for grid
     const columns = ref([
       {
-        name: t('motor-backend.categories.name'),
+        name: t('motor-admin.categories.name'),
         prop: 'category.name',
       },
       {
@@ -111,7 +111,7 @@ export default defineComponent({
         options: {
           parameter: 'category_id',
           emptyOption:
-            t('global.filter') + ': ' + t('motor-backend.categories.category'),
+            t('global.filter') + ': ' + t('motor-admin.categories.category'),
           options: categories,
         },
       },

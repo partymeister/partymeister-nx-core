@@ -58,7 +58,7 @@
           type="text"
           name="category_id"
           id="category_id"
-          :label="$t('motor-backend.categories.category')"
+          :label="$t('motor-admin.categories.category')"
           :value="model.category_id"
           :options="categories"
         ></FormsSelectField>
@@ -159,7 +159,7 @@ import FormsSelectField from 'motor-core/components/forms/SelectField.vue'
 import { useI18n } from 'vue-i18n'
 import { useRouter } from 'vue-router'
 import form from 'partymeister-core/forms/guestForm'
-import categoryRepository from 'motor-backend/api/category'
+import categoryRepository from 'motor-admin/api/category'
 import axios from 'axios'
 
 export default defineComponent({
